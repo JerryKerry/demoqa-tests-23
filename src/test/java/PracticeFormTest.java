@@ -50,13 +50,10 @@ public class PracticeFormTest{
                 .shouldBe(visible, enabled)
                 .setValue("Russia, SPB");
 
-        // Блок State and City
         $("#react-select-3-input").setValue("NCR").pressEnter();
         $("#react-select-4-input").setValue("Delhi").pressEnter();
         $("#submit").pressEnter();
 
-
-        // Проверка текста в форме после заполнения
         $(".table-responsive").shouldHave(text("Artem Pupkin"));
         $(".table-responsive").shouldHave(text("l25dscx@mail.ru"));
         $(".table-responsive").shouldHave(text("Female"));
