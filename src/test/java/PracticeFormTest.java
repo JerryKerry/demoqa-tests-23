@@ -24,7 +24,7 @@ public class PracticeFormTest{
 
         $("#userEmail").setValue("l25dscx@mail.ru");
 
-        $(byText("Female")).click();
+        $("label[for='gender-radio-1']").click();
 
         $("#userNumber").setValue("9333494066");
 
@@ -40,8 +40,9 @@ public class PracticeFormTest{
         $("#subjectsInput").setValue("Eng");
         $$(".subjects-auto-complete__option").findBy(text("English")).click();
 
-        $("label[for='hobbies-checkbox-1']").click();
-        $("label[for='hobbies-checkbox-3']").click();
+        $("#hobbiesWrapper").$(byText("Sports")).click();
+
+        $("#hobbiesWrapper").$(byText("Music")).click();
 
         $("#uploadPicture").uploadFromClasspath("1.jpg");
 
@@ -56,7 +57,7 @@ public class PracticeFormTest{
 
         $(".table-responsive").shouldHave(text("Artem Pupkin"));
         $(".table-responsive").shouldHave(text("l25dscx@mail.ru"));
-        $(".table-responsive").shouldHave(text("Female"));
+        $(".table-responsive").shouldHave(text("Male"));
         $(".table-responsive").shouldHave(text("9333494066"));
         $(".table-responsive").shouldHave(text("18 July,2025"));
         $(".table-responsive").shouldHave(text("Maths, Physics, English"));
