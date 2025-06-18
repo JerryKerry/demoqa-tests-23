@@ -6,7 +6,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class PracticeFormTest {
+public class PracticeFormTest{
 
     @BeforeAll
     static void basicBrowserSettings() {
@@ -52,20 +52,21 @@ public class PracticeFormTest {
 
         $("#react-select-3-input").setValue("NCR").pressEnter();
         $("#react-select-4-input").setValue("Delhi").pressEnter();
-        $("#submit").click();
+        $("#submit").pressEnter();
+
 
         $(".table-responsive").
                 shouldHave(
-                        text("Имя Фамилия"),
-                        text("mailfortest@test.test"),
-                        text("Male"),
-                        text("8999999999"),
-                        text("01 March,1995"),
-                        text("Maths, Physics, Computer Science"),
+                        text("Artem Pupkin"),
+                        text("l25dscx@mail.ru"),
+                        text("Female"),
+                        text("9333494066"),
+                        text("18 July,2025"),
+                        text("Maths, Physics, English"),
                         text("Sports, Music"),
-                        text("picture.png"),
-                        text("Москва, Театральный проезд, 5с1"),
-                        text("NCR Gurgaon")
+                        text("1.jpg"),
+                        text("Russia, SPB"),
+                        text("NCR Delhi")
                 );
     }
 }
