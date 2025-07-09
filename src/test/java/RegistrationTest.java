@@ -36,19 +36,18 @@ public class RegistrationTest extends TestBase {
 
     @Test
     void successfulMinFormTest() {
-        String userName = "Ivan";
 
         registrationPages.openPage()
-                .setFirstName(userName)
-                .setLastName("Ivanov")
+                .setFirstName("Artem")
+                .setLastName("Pupkin")
                 .setGender("Male")
-                .setNumber("8965412365")
+                .setNumber("9333494066")
                 .submitForm();
 
         registrationPages.verifyResultsModalAppears()
-                .verifyResult("Student Name", userName + " Ivanov")
+                .verifyResult("Student Name", "Artem" + " Pupkin")
                 .verifyResult("Gender", "Male")
-                .verifyResult("Mobile", "8965412365");
+                .verifyResult("Mobile", "9333494066");
     }
 
     @Test
