@@ -25,7 +25,6 @@ public class RegistrationPages {
             cityInput = $("#city"),
             submitTab = $("#submit");
 
-
     public RegistrationPages openPage() {
         open("/automation-practice-form");
         //Убираем рекламу
@@ -103,15 +102,11 @@ public class RegistrationPages {
         $(byText(city)).click();
 
         return this;
-
     }
 
-    public RegistrationPages submitForm() {
+    public void submitForm() {
         submitTab.click();
-
-        return this;
     }
-
 
     public RegistrationPages verifyResultsModalAppears() {
         registrationResultsModal.verifyModalAppears();
@@ -125,9 +120,7 @@ public class RegistrationPages {
         return this;
     }
 
-    public RegistrationPages verifyResultsModalAppearsNeg() {
+    public void verifyResultsModalAppearsNeg() {
         registrationResultsModal.verifyModalAppearsNegativ();
-
-        return this;
     }
 }
