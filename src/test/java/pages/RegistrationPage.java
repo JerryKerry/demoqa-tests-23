@@ -9,7 +9,7 @@ import pages.components.RegistrationResultsModal;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class RegistrationPages {
+public class RegistrationPage {
 
     private SelenideElement
             firstNameInput = $("#userName-wrapper #firstName"),
@@ -26,7 +26,7 @@ public class RegistrationPages {
             cityInput = $("#city"),
             submitTab = $("#submit");
 
-    public RegistrationPages openPage() {
+    public RegistrationPage openPage() {
         open("/automation-practice-form");
         executeJavaScript("$('footer').remove();");
         executeJavaScript("$('#fixedban').remove();");
@@ -34,37 +34,37 @@ public class RegistrationPages {
         return this;
     }
 
-    public RegistrationPages setFirstName(String value) {
+    public RegistrationPage setFirstName(String value) {
         firstNameInput.setValue(value);
 
         return this;
     }
 
-    public RegistrationPages setLastName(String value) {
+    public RegistrationPage setLastName(String value) {
         lastNameInput.setValue(value);
 
         return this;
     }
 
-    public RegistrationPages setEmail(String value) {
+    public RegistrationPage setEmail(String value) {
         emailInput.setValue(value);
 
         return this;
     }
 
-    public RegistrationPages setGender(String value) {
+    public RegistrationPage setGender(String value) {
         genderInput.$(byText(value)).click();
 
         return this;
     }
 
-    public RegistrationPages setNumber(String value) {
+    public RegistrationPage setNumber(String value) {
         numberInput.setValue(value);
 
         return this;
     }
 
-    public RegistrationPages selectDateOfBirth(CalendarDate date) {
+    public RegistrationPage selectDateOfBirth(CalendarDate date) {
         CalendarComponent calendar = new CalendarComponent(dateOfBirthInput);
         calendar.click();
         calendar.setDate(date);
@@ -72,38 +72,38 @@ public class RegistrationPages {
         return this;
     }
 
-    public RegistrationPages selectSubjects(String... subjects) {
+    public RegistrationPage selectSubjects(String... subjects) {
         for (String subject : subjects) {
             subjectsInput.setValue(subject).pressEnter();
         }
         return this;
     }
 
-    public RegistrationPages selectHobbies(String... hobbies) {
+    public RegistrationPage selectHobbies(String... hobbies) {
         for (String hobby : hobbies) {
             hobbiesInput.$(byText(hobby)).click();
         }
         return this;
     }
 
-    public RegistrationPages uploadPicture(String value) {
+    public RegistrationPage uploadPicture(String value) {
         pictureInput.uploadFromClasspath(value);
 
         return this;
     }
 
-    public RegistrationPages setAddress(String value) {
+    public RegistrationPage setAddress(String value) {
         addressInput.setValue(value);
 
         return this;
     }
 
-    public RegistrationPages setMobile(String mobile) {
+    public RegistrationPage setMobile(String mobile) {
         numberInput.setValue(mobile);
         return this;
     }
 
-    public RegistrationPages selectState(String state) {
+    public RegistrationPage selectState(String state) {
         stateInput.click();
         stateInput.$$("div")
                 .filterBy(Condition.exactText(state))
@@ -112,7 +112,7 @@ public class RegistrationPages {
         return this;
     }
 
-    public RegistrationPages selectCity(String city) {
+    public RegistrationPage selectCity(String city) {
         cityInput.click();
         cityInput.$$("div")
                 .filterBy(Condition.exactText(city))

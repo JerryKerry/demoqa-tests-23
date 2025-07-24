@@ -2,13 +2,13 @@ import data.CalendarDate;
 import data.DataGeneration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pages.RegistrationPages;
+import pages.RegistrationPage;
 
 public class RegistrationTest extends TestBase {
 
     private DataGeneration data;
-    private final RegistrationPages.ResultModal resultModal = new RegistrationPages.ResultModal();
-    private final RegistrationPages registrationPages = new RegistrationPages();
+    private final RegistrationPage.ResultModal resultModal = new RegistrationPage.ResultModal();
+    private final RegistrationPage registrationPage = new RegistrationPage();
 
     @BeforeEach
     public void initTestData() {
@@ -18,7 +18,7 @@ public class RegistrationTest extends TestBase {
     @Test
     void successfulFillFormTest() {
 
-        registrationPages.openPage()
+        registrationPage.openPage()
                 .setFirstName(data.getFirstName())
                 .setLastName(data.getLastName())
                 .setEmail(data.getEmail())
@@ -49,7 +49,7 @@ public class RegistrationTest extends TestBase {
     @Test
     void successfulMinFormTest() {
 
-        registrationPages.openPage()
+        registrationPage.openPage()
                 .setFirstName(data.getFirstName())
                 .setLastName(data.getLastName())
                 .setGender(data.getGender())
@@ -71,7 +71,7 @@ public class RegistrationTest extends TestBase {
     @Test
     void negativeMinFormTest() {
 
-        registrationPages.openPage()
+        registrationPage.openPage()
                 .submitForm();
       resultModal.shouldNotBeVisible();
 

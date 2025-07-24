@@ -1,9 +1,9 @@
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
-import pages.RegistrationPages;
+import pages.RegistrationPage;
 
 public class TestBase {
-    RegistrationPages registrationPages = new RegistrationPages();
+    RegistrationPage registrationPage = new RegistrationPage();
 
     @BeforeAll
     static void basicBrowserSettings() {
