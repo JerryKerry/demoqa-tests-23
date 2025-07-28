@@ -1,27 +1,28 @@
 package pages.components;
 
 import com.codeborne.selenide.SelenideElement;
-import static com.codeborne.selenide.Condition.*;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 public class RegistrationResultsModal {
-    private SelenideElement
-            modalContent = $(".modal-content");
 
-    public void verifyResult(String label, String expectedValue) {
-        SelenideElement valueElement = modalContent.$$("table tr")
-                .findBy(text(label))
-                .$$("td")
-                .get(1);
+    SelenideElement
+    modalContent = $(".modal-content"),
+    table = $(".table-responsive");
 
-        if (expectedValue.trim().isEmpty()) {
-            valueElement.shouldBe(empty);
-        } else {
-            valueElement.shouldHave(exactText(expectedValue));
-        }
+
+    public void verifyModalAppears() {
+        modalContent.shouldHave(text("Thanks for submitting the form"));
     }
 
-    public void shouldNotBeVisible() {
-        modalContent.shouldNot(visible);
+    public void verifyResult(String key, String value) {
+        table.$(byText(key))
+                .parent().shouldHave(text(value));
+    }
+
+    public void verifyModalAppearsNegativ() {
+        modalContent.shouldNot();
     }
 }
