@@ -1,4 +1,4 @@
-package pages;
+package pages.textBox;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
