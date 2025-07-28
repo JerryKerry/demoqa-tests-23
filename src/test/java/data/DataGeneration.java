@@ -1,158 +1,79 @@
 package data;
 
-
 import com.github.javafaker.Faker;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.format.TextStyle;
-import java.util.*;
+import java.util.Date;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
+
+import static data.DataMap.uploadFile;
 
 public class DataGeneration {
-    private static final String[] GENDERS = {"Male", "Female", "Other"};
-    private static final String[] HOBBIES = {"Sports", "Reading", "Music"};
-    private static final String[] SUBJECTS = {
-            "Hindi", "English", "Maths", "Physics", "Chemistry", "Biology", "Computer Science", "Commerce",
-            "Accounting", "Economics", "Arts", "Social Studies", "History", "Civics"
-    };
-    private static final String[] FILENAMES = {"1.jpg"};
-    private static final Map<String, List<String>> stateToCities = Map.of(
-            "NCR", List.of("Delhi", "Gurgaon", "Noida"),
-            "Uttar Pradesh", List.of("Agra", "Lucknow", "Merrut"),
-            "Haryana", List.of("Karnal", "Panipat"),
-            "Rajasthan", List.of("Jaipur", "Jaiselmer")
-    );
 
-    private static final Faker faker = new Faker();
-    private static final Random random = new Random();
+    public static Faker faker = new Faker(new Locale("en-GB"));
 
-    private final String firstName;
-    private final String lastName;
-    private final String gender;
-    private final String email;
-    private final String mobile;
-    private final String currentAddress;
-    private final String state;
-    private final String city;
-    private final String[] hobbies;
-    private final String[] subjects;
-    private final CalendarDate dateOfBirth;
-    private final String filename;
 
-    public DataGeneration() {
-        this.firstName = faker.name().firstName();
-        this.lastName = faker.name().lastName();
-        this.gender = faker.options().option(GENDERS);
-        this.dateOfBirth = generateDateOfBirth();
-        this.email = faker.internet().emailAddress();
-        this.mobile = getRandomMobile();
-        this.currentAddress = faker.address().fullAddress();
-        this.filename = faker.options().option(FILENAMES);
-
-        String[] stateCity = getRandomStateAndCity();
-        this.state = stateCity[0];
-        this.city = stateCity[1];
-
-        this.hobbies = getRandomSubset(HOBBIES);
-        this.subjects = getRandomSubset(SUBJECTS);
+    public String getFullUserName() {
+        return faker.name().fullName();
     }
 
     public String getFirstName() {
-        return firstName;
+        return faker.name().firstName();
     }
 
     public String getLastName() {
-        return lastName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public CalendarDate getDateOfBirth() {
-        return dateOfBirth;
+        return faker.name().lastName();
     }
 
     public String getEmail() {
-        return email;
+        return faker.internet().emailAddress();
+    }
+
+    public String getAddress() {
+        return faker.address().streetAddress();
     }
 
     public String getMobile() {
-        return mobile;
+        return faker.phoneNumber().subscriberNumber(10);
     }
 
-    public String getCurrentAddress() {
-        return currentAddress;
+    public String getGender() {
+        return faker.demographic().sex();
+    }
+
+    public String getSubject() {
+        return faker.options().option(DataMap.SUBJECT);
+    }
+
+    public String getHobby() {
+        return faker.options().option(DataMap.HOBBIES);
     }
 
     public String getState() {
-        return state;
+        return faker.options().option(DataMap.mapStateWithCity.keySet().toArray()).toString();
     }
 
-    public String getCity() {
-        return city;
+    public String getCity(String state) {
+        return faker.options().option(DataMap.mapStateWithCity.get(state));
     }
 
-    public String[] getHobbies() {
-        return hobbies;
+    public Date getBirthday() {
+        return faker.date().birthday();
     }
 
-    public String[] getSubjects() {
-        return subjects;
+    public String getDayOfBirth(Date birthday) {
+        return new SimpleDateFormat("dd", Locale.ENGLISH).format(birthday);
     }
 
-    public String getFilename() {
-        return filename;
+    public String getMonthOfBirth(Date birthday) {
+        return new SimpleDateFormat("MMMM", Locale.ENGLISH).format(birthday);
     }
 
-    private static CalendarDate generateDateOfBirth() {
-        int age = random.nextInt(18, 100);
-
-        LocalDate now = LocalDate.now();
-        int year = now.getYear() - age;
-        int month = random.nextInt(12) + 1;
-        int day = random.nextInt(YearMonth.of(year, month).lengthOfMonth()) + 1;
-
-        LocalDate birthDate = LocalDate.of(year, month, day);
-        String monthName = birthDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
-
-        return new CalendarDate(String.valueOf(year), monthName, day);
+    public String getYearOfBirth(Date birthday) {
+        return new SimpleDateFormat("y", Locale.ENGLISH).format(birthday);
     }
 
-    private static String getRandomMobile() {
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < 10; i++) {
-            sb.append(random.nextInt(10));
-        }
-        return sb.toString();
-    }
-
-    private static String[] getRandomSubset(String[] array) {
-        int count = random.nextInt(1, array.length + 1);
-
-        String[] result = new String[count];
-        boolean[] used = new boolean[array.length];
-
-        for (int i = 0; i < count; i++) {
-            int index;
-            do {
-                index = random.nextInt(array.length);
-            } while (used[index]);
-
-            used[index] = true;
-            result[i] = array[index];
-        }
-        return result;
-    }
-
-    private static String[] getRandomStateAndCity() {
-        List<String> states = new ArrayList<>(stateToCities.keySet());
-        String randomState = states.get(random.nextInt(states.size()));
-
-        List<String> cities = stateToCities.get(randomState);
-        String randomCity = cities.get(random.nextInt(cities.size()));
-
-        return new String[] {randomState, randomCity};
+    public String getFile() {
+        return uploadFile;
     }
 }
