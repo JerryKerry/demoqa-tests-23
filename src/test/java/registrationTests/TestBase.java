@@ -10,7 +10,6 @@ public class TestBase {
     static void basicBrowserSettings() {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
-        Configuration.pageLoadStrategy = "eager"; // ускоренная загрузка страницы
-
+        Configuration.pageLoadStrategy = "eager";
     }
 }
