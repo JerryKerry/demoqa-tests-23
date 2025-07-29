@@ -1,10 +1,9 @@
 package data;
 
-import java.util.List;
 import java.util.Map;
 
 public class DataMap {
-    public static final String uploadFile = "MyPhoto.jpg";
+    public static final String uploadFile = "1.jpg";
 
     public static final String[] SUBJECT = {
             "Accounting", "Maths", "Arts", "English", "Physics", "Chemistry",
