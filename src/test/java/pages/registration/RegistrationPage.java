@@ -24,9 +24,7 @@ public class RegistrationPage {
             addressInput = $("#currentAddress"),
             stateInput = $("#state"),
             cityInput = $("#city"),
-            submitTab = $("#submit"),
-            fullName = $("tbody>tr");
-
+            submitTab = $("#submit");
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
@@ -127,12 +125,6 @@ public class RegistrationPage {
 
     public RegistrationPage verifyResult(String key, String value) {
         registrationResultsModal.verifyResult(key, value);
-
-        return this;
-    }
-
-    public RegistrationPage verifyResultsModalAppearsNeg() {
-        registrationResultsModal.verifyModalAppearsNegativ();
 
         return this;
     }
