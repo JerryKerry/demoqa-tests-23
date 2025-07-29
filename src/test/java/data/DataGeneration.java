@@ -65,5 +65,4 @@ public class DataGeneration {
     public String getYearOfBirth(Date birthday) {
         return new SimpleDateFormat("y", Locale.ENGLISH).format(birthday);
     }
-
 }
