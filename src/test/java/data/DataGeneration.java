@@ -6,16 +6,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.text.SimpleDateFormat;
 
-import static data.DataMap.uploadFile;
-
 public class DataGeneration {
 
-    public static Faker faker = new Faker(new Locale("en-GB"));
-
-
-    public String getFullUserName() {
-        return faker.name().fullName();
-    }
+    public static Faker faker = new Faker();
 
     public String getFirstName() {
         return faker.name().firstName();
@@ -73,7 +66,4 @@ public class DataGeneration {
         return new SimpleDateFormat("y", Locale.ENGLISH).format(birthday);
     }
 
-    public String getFile() {
-        return uploadFile;
-    }
 }
