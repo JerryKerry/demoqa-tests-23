@@ -1,8 +1,9 @@
 package registrationTests;
 
+import com.codeborne.selenide.Selenide;
 import data.DataGeneration;
-import static com.codeborne.selenide.Selenide.sleep;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import pages.registration.RegistrationPage;
 import pages.components.RegistrationResultsModal;
@@ -13,64 +14,74 @@ import static data.DataMap.uploadFile;
 
 public class RegistrationTest extends TestBase {
 
-
-
     private DataGeneration data = new DataGeneration();
     private final RegistrationPage registrationPage = new RegistrationPage();
     private final RegistrationResultsModal registrationResultsModal = new RegistrationResultsModal();
 
+    Date birthday = data.getBirthday();
+    String dayOfBirth = data.getDayOfBirth(birthday);
+    String monthOfBirth = data.getMonthOfBirth(birthday);
+    String yearOfBirth = data.getYearOfBirth(birthday);
+    String state = data.getState();
+    String city = data.getCity(state);
+    String firstName = data.getFirstName();
+    String lastName = data.getLastName();
+    String gender = data.getGender();
+    String mobile = data.getMobile();
+    String email = data.getEmail();
+    String subject = data.getSubject();
+    String hobby = data.getHobby();
+    String address = data.getAddress();
+
+    @AfterEach
+    void afterEach() {
+        Selenide.closeWebDriver();
+    }
 
     @Test
     void successfulFillFormTest() {
-
-        Date birthday = data.getBirthday();
-        String dayOfBirth = data.getDayOfBirth(birthday);
-        String monthOfBirth = data.getMonthOfBirth(birthday);
-        String yearOfBirth = data.getYearOfBirth(birthday);
-        String state = data.getState();
-        String city = data.getCity(state);
-
         registrationPage.openPage()
                 .removeAds()
-                .setFirstName(data.getFirstName())
-                .setLastName(data.getLastName())
-                .setEmail(data.getEmail())
-                .setGender(data.getGender())
-                .setMobile(data.getMobile())
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setEmail(email)
+                .setGender(gender)
+                .setMobile(mobile)
                 .setBirthDate(dayOfBirth,monthOfBirth,yearOfBirth)
-                .setSubjects(data.getSubject())
-                .setHobbies(data.getHobby())
+                .setSubjects(subject)
+                .setHobbies(hobby)
                 .uploadPicture(uploadFile)
-                .setAddress(data.getAddress())
-                .setStateAndCity(data.getState(), city)
+                .setAddress(address)
+                .setStateAndCity(state, city)
                 .submitForm();
 
         registrationPage
-                .verifyResult("Student Name", data.getFirstName() + " " + data.getLastName())
-                .verifyResult("Student Email", data.getEmail())
-                .verifyResult("Gender", data.getGender())
-                .verifyResult("Mobile", data.getMobile())
+                .verifyResult("Student Name", firstName + " " + lastName)
+                .verifyResult("Student Email", email)
+                .verifyResult("Gender", gender)
+                .verifyResult("Mobile", mobile)
                 .verifyResult("Date of Birth", dayOfBirth + " " + monthOfBirth+ "," + yearOfBirth)
-                .verifyResult("Subjects", data.getSubject())
-                .verifyResult("Hobbies", data.getHobby())
+                .verifyResult("Subjects", subject)
+                .verifyResult("Hobbies", hobby)
                 .verifyResult("Picture", uploadFile)
-                .verifyResult("Address", data.getAddress())
-                .verifyResult("State and City", data.getState() + " " + city);
+                .verifyResult("Address", address)
+                .verifyResult("State and City", state + " " + city);
     }
 
     @Test
     void successfulMinFormTest() {
         registrationPage.openPage()
                 .removeAds()
-                .setFirstName(data.getFirstName())
-                .setLastName(data.getLastName())
-                .setGender(data.getGender())
-                .setMobile(data.getMobile())
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setGender(gender)
+                .setMobile(mobile)
                 .submitForm();
+
         registrationPage.verifyResultsModalAppears()
-//                .verifyResult("Student Name", data.getFirstName() + " " + data.getLastName())
-                .verifyResult("Gender", data.getGender())
-                .verifyResult("Mobile", data.getMobile());
+                .verifyResult("Student Name", firstName + " " + lastName)
+                .verifyResult("Gender", gender)
+                .verifyResult("Mobile", mobile);
     }
 
     @Test
@@ -78,6 +89,5 @@ public class RegistrationTest extends TestBase {
         registrationPage.openPage()
                 .submitForm();
         registrationResultsModal.verifyModalAppearsNegativ();
-
     }
 }
