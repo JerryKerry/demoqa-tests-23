@@ -37,6 +37,7 @@ public class PracticeFormTest{
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
         Attach.addVideo();
+        Attach.browserConsoleLogs();
     }
 
     @Tag("demoqa")
