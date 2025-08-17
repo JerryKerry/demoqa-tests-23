@@ -1,5 +1,6 @@
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.*;
@@ -16,6 +17,7 @@ public class PracticeFormTest{
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
     }
 
+    @Tag("demoqa")
     @Test
     void fullFormTest() {
         open("/automation-practice-form");
