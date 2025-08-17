@@ -13,8 +13,9 @@ import java.util.Map;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static io.qameta.allure.Allure.step;
 
-public class PracticeFormTest{
+public class PracticeFormTest {
 
     @BeforeAll
     static void basicBrowserSettings() {
@@ -33,7 +34,7 @@ public class PracticeFormTest{
     }
 
     @AfterEach
-    void addAttachments(){
+    void addAttachments() {
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
         Attach.addVideo();
@@ -43,53 +44,62 @@ public class PracticeFormTest{
     @Tag("demoqa")
     @Test
     void fullFormTest() {
-        open("/automation-practice-form");
+        step("Open form", () -> {
+            open("/automation-practice-form");
+            $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+            executeJavaScript("$('#fixedban').remove()");
+            executeJavaScript("$('footer').remove()");
+        });
+        step("Fill form", () -> {
 
-        $("#firstName").setValue("Artem");
-        $("#lastName").setValue("Pupkin");
+            $("#firstName").setValue("Artem");
+            $("#lastName").setValue("Pupkin");
 
-        $("#userEmail").setValue("l25dscx@mail.ru");
+            $("#userEmail").setValue("l25dscx@mail.ru");
 
-        $("label[for='gender-radio-1']").click();
+            $("label[for='gender-radio-1']").click();
 
-        $("#userNumber").setValue("9333494066");
+            $("#userNumber").setValue("9333494066");
 
-        $("#dateOfBirthInput").clear();
-        $(".react-datepicker__month-select").selectOption("July");
-        $(".react-datepicker__year-select").selectOption("2025");
-        $$(".react-datepicker__day").findBy(text("18")).click();
+            $("#dateOfBirthInput").clear();
+            $(".react-datepicker__month-select").selectOption("July");
+            $(".react-datepicker__year-select").selectOption("2025");
+            $$(".react-datepicker__day").findBy(text("18")).click();
 
-        $("#subjectsInput").setValue("Math");
-        $$(".subjects-auto-complete__option").findBy(text("Maths")).click();
-        $("#subjectsInput").setValue("Phy");
-        $$(".subjects-auto-complete__option").findBy(text("Physics")).click();
-        $("#subjectsInput").setValue("Eng");
-        $$(".subjects-auto-complete__option").findBy(text("English")).click();
+            $("#subjectsInput").setValue("Math");
+            $$(".subjects-auto-complete__option").findBy(text("Maths")).click();
+            $("#subjectsInput").setValue("Phy");
+            $$(".subjects-auto-complete__option").findBy(text("Physics")).click();
+            $("#subjectsInput").setValue("Eng");
+            $$(".subjects-auto-complete__option").findBy(text("English")).click();
 
-        $("#hobbiesWrapper").$(byText("Sports")).click();
+            $("#hobbiesWrapper").$(byText("Sports")).click();
 
-        $("#hobbiesWrapper").$(byText("Music")).click();
+            $("#hobbiesWrapper").$(byText("Music")).click();
 
-        $("#uploadPicture").uploadFromClasspath("1.jpg");
+            $("#uploadPicture").uploadFromClasspath("1.jpg");
 
-        $("#currentAddress")
-                .scrollTo()
-                .shouldBe(visible, enabled)
-                .setValue("Russia, SPB");
+            $("#currentAddress")
+                    .scrollTo()
+                    .shouldBe(visible, enabled)
+                    .setValue("Russia, SPB");
 
-        $("#react-select-3-input").setValue("NCR").pressEnter();
-        $("#react-select-4-input").setValue("Delhi").pressEnter();
-        $("#submit").pressEnter();
+            $("#react-select-3-input").setValue("NCR").pressEnter();
+            $("#react-select-4-input").setValue("Delhi").pressEnter();
+            $("#submit").pressEnter();
+        });
 
-        $(".table-responsive").shouldHave(text("Artem Pupkin"));
-        $(".table-responsive").shouldHave(text("l25dscx@mail.ru"));
-        $(".table-responsive").shouldHave(text("Male"));
-        $(".table-responsive").shouldHave(text("9333494066"));
-        $(".table-responsive").shouldHave(text("18 July,2025"));
-        $(".table-responsive").shouldHave(text("Maths, Physics, English"));
-        $(".table-responsive").shouldHave(text("Sports, Music"));
-        $(".table-responsive").shouldHave(text("1.jpg"));
-        $(".table-responsive").shouldHave(text("Russia, SPB"));
-        $(".table-responsive").shouldHave(text("NCR Delhi"));
+        step("Verify results", () -> {
+            $(".table-responsive").shouldHave(text("Artem Pupkin"));
+            $(".table-responsive").shouldHave(text("l25dscx@mail.ru"));
+            $(".table-responsive").shouldHave(text("Male"));
+            $(".table-responsive").shouldHave(text("9333494066"));
+            $(".table-responsive").shouldHave(text("18 July,2025"));
+            $(".table-responsive").shouldHave(text("Maths, Physics, English"));
+            $(".table-responsive").shouldHave(text("Sports, Music"));
+            $(".table-responsive").shouldHave(text("1.jpg"));
+            $(".table-responsive").shouldHave(text("Russia, SPB"));
+            $(".table-responsive").shouldHave(text("NCR Delhi"));
+        });
     }
 }
