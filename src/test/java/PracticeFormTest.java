@@ -19,7 +19,7 @@ public class PracticeFormTest {
 
     @BeforeAll
     static void basicBrowserSettings() {
-        Configuration.baseUrl = "https://demoqa.com/automation-practice-form";
+        Configuration.baseUrl = "https://demoqa.com";
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("version", "128.0");
         Configuration.browserSize = System.getProperty("resolution","1920x1080");
