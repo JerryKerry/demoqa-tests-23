@@ -19,8 +19,10 @@ public class PracticeFormTest {
 
     @BeforeAll
     static void basicBrowserSettings() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com";
+        Configuration.baseUrl = "https://demoqa.com/automation-practice-form";
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserVersion = System.getProperty("version", "128.0");
+        Configuration.browserSize = System.getProperty("resolution","1920x1080");
         Configuration.pageLoadStrategy = "eager";
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
         DesiredCapabilities capabilities = new DesiredCapabilities();
