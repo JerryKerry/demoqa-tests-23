@@ -21,8 +21,8 @@ public class PracticeFormTest {
     static void basicBrowserSettings() {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browser = System.getProperty("browser", "chrome");
-        Configuration.browserVersion = System.getProperty("version", "128.0");
         Configuration.browserSize = System.getProperty("resolution","1920x1080");
+        Configuration.remote = System.getProperty("remoteUrl");
         Configuration.pageLoadStrategy = "eager";
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
         DesiredCapabilities capabilities = new DesiredCapabilities();
